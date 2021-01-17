@@ -1,0 +1,57 @@
+body {
+  margin: 0;
+  background: black;
+  color: #ffffff;
+	font: 20px "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h2 {
+  font-size: 14px;
+}
+
+.center {
+  border: 5px solid #fff;
+  padding: 5px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  position: absolute;
+  background: #000000;
+  display: grid;
+  grid-template-columns: ;
+  grid-template-rows: ;
+}
+
+.social {
+  font-size: 0;
+}
+
+.social a {
+  font-size: 12px;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.social a:hover {
+  text-decoration: underline;
+}
+
+canvas {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+}
+
+@media (max-width: 600px) {
+  canvas, #tip {
+    display: none;
+  }
+  .center {
+    border: none;
+  }
+}
