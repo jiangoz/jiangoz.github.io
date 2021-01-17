@@ -2,15 +2,7 @@ body {
   margin: 0;
   background: black;
   color: #ffffff;
-	font: 20px "Segoe UI", Helvetica, Arial, sans-serif;
-}
-
-h1 {
-  font-size: 20px;
-}
-
-h2 {
-  font-size: 14px;
+	font: Verdana, Arial, Helvetica;
 }
 
 .center {
@@ -21,24 +13,43 @@ h2 {
   transform: translate(-50%,-50%);
   position: absolute;
   background: #000000;
-  display: grid;
-  grid-template-columns: ;
-  grid-template-rows: ;
 }
 
-.social {
-  font-size: 0;
+.intro {
+  display: grid;
+  grid-template-columns: 1fr 2.5fr;
+}
+
+.intro h1 {
+  font-size: 36px;
+  grid-row: 1 / 2;
+  grid-column: 1 / 4;
+  text-align: center;
+  grid-column: 2;
+  justify-self: center;
+}
+
+.intro img {
+  width: 80px;
+  grid-column: 1 / 2;
+  justify-self: end;
+}
+
+.social img {
+  width: 18px;
 }
 
 .social a {
-  font-size: 12px;
+  font-size: 18px;
   color: #fff;
+  text-align: center;
+  margin-right: 15px;
   text-decoration: none;
-  padding: 10px;
 }
 
 .social a:hover {
-  text-decoration: underline;
+  text-decoration:underline;
+  background-color: rgb(4, 164, 238);
 }
 
 canvas {
@@ -51,7 +62,5 @@ canvas {
   canvas, #tip {
     display: none;
   }
-  .center {
-    border: none;
-  }
+  
 }
