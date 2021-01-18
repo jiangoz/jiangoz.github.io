@@ -7,7 +7,7 @@ canvas.height = canvas.getBoundingClientRect().height;
 
 const ballSpeed = 15;
 
-// Ball object
+// Ball (pong)
 const ball = {
     x : canvas.width/2, // right side of canvas
     y : canvas.height/2,
