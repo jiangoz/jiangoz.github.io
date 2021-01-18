@@ -63,3 +63,47 @@ body {
   cursor: pointer;
 }
 
+/* No pong :( */
+@media (max-width: 450px) {
+  #togglePong {
+    display: none;
+  }
+}
+
+/* For smaller device */
+@media (max-width: 928px) {
+
+  .intro {
+    display: grid;
+    grid-template-columns: 1fr 2.5fr;
+  }
+  
+  .intro h1 {
+    font-size: 6vw;
+    grid-row: 1 / 2;
+    grid-column: 1 / 4;
+    text-align: center;
+    grid-column: 2;
+    justify-self: center;
+  }
+  
+  .intro img {
+    width: 12vw;
+    grid-column: 1 / 2;
+    justify-self: end;
+  }
+  
+  .social img {
+    width: 2vw;
+  }
+  
+  .social a {
+    font-size: 3vw;
+    color: #fff;
+    text-align: center;
+    margin: auto;
+    text-decoration: none;
+  }
+
+}
+
