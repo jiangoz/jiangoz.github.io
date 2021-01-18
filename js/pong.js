@@ -16,7 +16,7 @@ const ball = {
     velocityY : ballSpeed*Math.sin(Math.PI/4),
     speed : ballSpeed,
     color : "WHITE",
-    speedUpLevel: 0
+    speedUpLevel: Math.random()*0.3
 }
 
 // User Paddle
@@ -116,11 +116,12 @@ function update(){
     ball.x += ball.velocityX;
     ball.y += ball.velocityY;
 
-    randMargin = Math.random()+5;
+    let rand = Math.random()+0.4;
+    let rand2 = Math.random()+0.4;
     // computer plays
-    computer.y += ball.y - (computer.y + computer.height/(5+randMargin));
+    computer.y += (ball.y - (computer.y + 3*computer.height/4))*rand;
     // user(computer 2) plays
-    user.y += ball.y - (user.y + user.height/(5+randMargin));
+    user.y += (ball.y - (user.y +user.height/4))*rand2;
     
     // when the ball collides with bottom and top walls, inverse the y velocity
     if(ball.y - ball.radius < 0 || ball.y + ball.radius > canvas.height){
