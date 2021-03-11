@@ -5,7 +5,7 @@ const ctx = canvas.getContext('2d');
 canvas.width = canvas.getBoundingClientRect().width;
 canvas.height = canvas.getBoundingClientRect().height;
 
-const ballSpeed = 15;
+const ballSpeed = 12;
 
 // Ball (pong)
 const ball = {
@@ -16,7 +16,7 @@ const ball = {
     velocityY : ballSpeed*Math.sin(Math.PI/4),
     speed : ballSpeed,
     color : "WHITE",
-    speedUpLevel: Math.random()*0.3
+    speedUpLevel: 0.2 
 }
 
 // User Paddle
@@ -167,8 +167,10 @@ function update(){
         ball.velocityX = direction * ball.speed * Math.cos(angleRad);
         ball.velocityY = ball.speed * Math.sin(angleRad);
         
-        // speed up the ball everytime it hits paddle
-        ball.speed += ball.speedUpLevel;
+        if (ball.speed < 24) { // cap the ball speed at 24
+            // speed up the ball everytime it hits paddle
+            ball.speed += ball.speedUpLevel;
+        }
     }
 }
 
