@@ -29,7 +29,7 @@ const user = {
     color : "WHITE"
 }
 
-// computerputer Paddle
+// computer Paddle
 const computer = {
     x : canvas.width - 20, 
     y : (canvas.height - 100)/2, 
@@ -78,7 +78,14 @@ function drawNet(){
     }
 }
 
-// draw text
+// draw score (for bigger number)
+function drawScore(text,x,y){
+    ctx.fillStyle = "#FFF";
+    ctx.font = "32px fantasy";
+    ctx.fillText(text, x, y);
+}
+
+// draw text (for smaller instruction)
 function drawText(text,x,y){
     ctx.fillStyle = "#FFF";
     ctx.font = "20px fantasy";
@@ -100,14 +107,21 @@ function collision(b,p){
     return p.left < b.right && p.top < b.bottom && p.right > b.left && p.bottom > b.top;
 }
 
+// move the user paddle with mouse if game is playable
+function userPaddleMove(evt) {
+    if (isPlayable) {
+        user.y = evt.clientY - user.height/2;
+    }
+}
+
 // update the game by executing all the logic
 function update(){
     
     // update scores
-    if( ball.x - ball.radius < 0 ){
+    if( ball.x - ball.radius <= 0 ){
         computer.score++;
         resetBall();
-    }else if( ball.x + ball.radius > canvas.width){
+    }else if( ball.x + ball.radius >= canvas.width){
         user.score++;
         resetBall();
     }
@@ -118,13 +132,21 @@ function update(){
 
     let rand = Math.random()+0.4;
     let rand2 = Math.random()+0.4;
+
     // computer plays
     computer.y += (ball.y - (computer.y + 3*computer.height/4))*rand;
-    // user(computer 2) plays
-    user.y += (ball.y - (user.y +user.height/4))*rand2;
+
+    //check if game is playable by user
+    if (isPlayable) {
+        canvas.addEventListener("mousemove", userPaddleMove);
+    }
+    else {
+        // user(computer 2) plays automatically
+        user.y += (ball.y - (user.y +user.height/4))*rand2;
+    }
     
     // when the ball collides with bottom and top walls, inverse the y velocity
-    if(ball.y - ball.radius < 0 || ball.y + ball.radius > canvas.height){
+    if(ball.y - ball.radius <= 0 || ball.y + ball.radius >= canvas.height){
         ball.velocityY = -ball.velocityY;
     }
     
@@ -156,11 +178,16 @@ function render(){
     // clear the canvas
     drawRect(0, 0, canvas.width, canvas.height, "#000");
 
-    // // draw the user score
-    // drawText(user.score,canvas.width/2-20,canvas.height/5);
-    
-    // // draw the computer score
-    // drawText(computer.score,canvas.width/2+10,canvas.height/5);
+    if (!isPlayable) {
+        // draw the instruction for making pong game playable
+        drawText("Press the spacebar key to play!", canvas.width/4, 5*canvas.height/7)
+        drawText("Use mouse to control the left paddle", canvas.width/4, 5*canvas.height/7+24)
+    }
+
+    // draw the user score
+    drawScore(user.score,canvas.width/2-64,canvas.height/5);
+    // draw the computer score
+    drawScore(computer.score,canvas.width/2+52,canvas.height/5);
     
     // draw the net in the middle
     drawNet();
@@ -179,6 +206,19 @@ function game(){
     update();
     render();
 }
+
+let isPlayable = false;
+// toggle to make pong game playable (press space)
+function togglePlayable(evt) {
+    if (evt.code == 'Space') {
+        if (isPlayable) {
+            isPlayable = false;
+        } else {
+            isPlayable = true;
+        }
+    }
+}
+document.addEventListener("keydown",togglePlayable)
 
 let isRunning = false;
 let loop;
