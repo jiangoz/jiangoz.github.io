@@ -185,8 +185,12 @@ function render() {
 
     if (!isPlayable) {
         // draw the instruction for making pong game playable
-        drawText("Press the spacebar key to play!", canvas.width / 4, 5 * canvas.height / 7)
-        drawText("Use mouse to control the left paddle", canvas.width / 4, 5 * canvas.height / 7 + 24)
+        drawText("- Press the spacebar key to play!",
+            canvas.width / 4, 6 * canvas.height / 7)
+        drawText("- Use mouse to control the left paddle",
+            canvas.width / 4, 6 * canvas.height / 7 + 24)
+        drawText("- Click red paddle icon to hide the game",
+            canvas.width / 4, 6 * canvas.height / 7 + 48)
     }
 
     // draw the user score
