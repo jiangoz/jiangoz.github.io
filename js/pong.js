@@ -5,7 +5,10 @@ const ctx = canvas.getContext('2d');
 canvas.width = canvas.getBoundingClientRect().width;
 canvas.height = canvas.getBoundingClientRect().height;
 
+// pong game configurations
 const ballSpeed = 12;
+const framePerSecond = 60;
+const autoStartPong = true;
 
 // Ball (pong)
 const ball = {
@@ -222,19 +225,32 @@ function togglePlayable(evt) {
 }
 document.addEventListener("keydown",togglePlayable)
 
-let isRunning = false;
 let loop;
-// toggle, start/stop everything
+let isRunning;
+// help initialize the pong game
+function init() {
+    if (autoStartPong) {
+        // starts the pong game automatically after page loads
+        loop = setInterval(game,1000/framePerSecond);
+        isRunning = true;
+    }
+    else {
+        isRunning = false;
+    }
+}
+init()
+
+// toggle, start/stop the pong game
 function togglePong() {
     if (isRunning) {
+        // stop the game
         clearInterval(loop);
         // clear the canvas
         drawRect(0, 0, canvas.width, canvas.height, "#000");
         isRunning = false;
     }
     else {
-        let framePerSecond = 60;
-        //call the game function 50 times every 1 Sec
+        // call the game function 60 times every 1 second
         loop = setInterval(game,1000/framePerSecond);
         isRunning = true;
     } 
