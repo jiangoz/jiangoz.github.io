@@ -1,0 +1,23 @@
+/* Tooltip text */
+.name .tooltiptext {
+  visibility: hidden;
+  font-size: 22px;
+  width: 100px;
+  background-color: black;
+  color: rgb(208, 208, 208);
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 20px;
+ 
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 70%;
+  left: 80%;
+  margin-left: -60px; 
+}
+
+/* Show the tooltip text when you hover over name */
+.name:hover .tooltiptext {
+  visibility: visible;
+}
