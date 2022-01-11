@@ -41,7 +41,13 @@
   </div>
 
   <!-- PONG GAME SCRIPT -->
-  <script src="js/pong.js"></script>
+  <script>
+    if (screen && screen.width >= 450) {
+      let script = document.createElement('script');
+      script.setAttribute('src', 'js/pong.js');
+      document.body.appendChild(script);
+    }
+  </script>
 
 </body>
 
