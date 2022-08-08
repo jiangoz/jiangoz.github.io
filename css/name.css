@@ -21,3 +21,24 @@
 .name:hover .tooltiptext {
   visibility: visible;
 }
+
+/* Name flip animation*/
+.flippy {
+  position: relative;
+}
+.flippy span {
+  position: relative;
+  display: inline-block;
+  letter-spacing: -0.16em;
+  animation: flip 2s infinite;
+  animation-delay: calc(.2s * var(--i));
+}
+@keyframes flip {
+  0%, 80% {
+    transform: rotateY(360deg); 
+  }
+  0%   {color: #fff;}
+  25%  {color: #00FF41;}
+  50%  {color: #008F11;}
+  100% {color: #003B00;}
+}
