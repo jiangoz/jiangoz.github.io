@@ -1,23 +1,32 @@
-/* Tooltip text */
+/* Tooltip text: sized in em so it scales with the name and stays inside the white box */
 .name .tooltiptext {
   visibility: hidden;
-  font-size: 22px;
-  width: 100px;
+  font-size: 0.36em;
+  width: max-content;
   background-color: black;
   color: rgb(208, 208, 208);
   text-align: center;
-  padding: 5px 0;
+  padding: 0.1em 0.5em;
   border-radius: 20px;
- 
-  /* Position the tooltip text */
+
+  /* Center the tooltip over/under "Ethan" */
   position: absolute;
   z-index: 1;
-  bottom: 70%;
-  left: 80%;
-  margin-left: -60px; 
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-/* Show the tooltip text when you hover over name */
+/* "Ethan Yi Jiang" above Ethan */
+.name .tooltip-top {
+  bottom: 100%;
+}
+
+/* "江毅" below Ethan */
+.name .tooltip-bottom {
+  top: 100%;
+}
+
+/* Show the tooltips when you hover over name */
 .name:hover .tooltiptext {
   visibility: visible;
 }
@@ -26,7 +35,10 @@
 .flippy {
   position: relative;
 }
-.flippy span {
+.flippy .ethan {
+  position: relative;
+}
+.flippy .ethan > span:not(.tooltiptext) {
   position: relative;
   display: inline-block;
   letter-spacing: -0.16em;
