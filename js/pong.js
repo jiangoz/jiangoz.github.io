@@ -29,7 +29,8 @@ const user = {
     width: 20,
     height: 100,
     score: 0,
-    color: "WHITE"
+    color: "WHITE",
+    hitOffset: 0.25 // fraction down the paddle where it aims to hit the ball (when auto-playing)
 }
 
 // computer Paddle
@@ -40,7 +41,16 @@ const computer = {
     height: 100,
     score: 0,
     color: "WHITE",
+    hitOffset: 0.75 // fraction down the paddle where it aims to hit the ball
 }
+
+// pick a random spot on an auto-played paddle to aim for, so its returns bounce at varied angles
+// (kept within 10%-90% of the paddle so the ball still reliably lands on it)
+function randomizeHitOffset(paddle) {
+    paddle.hitOffset = 0.1 + Math.random() * 0.8;
+}
+randomizeHitOffset(user);
+randomizeHitOffset(computer);
 
 // Net/line in the middle
 const net = {
@@ -72,6 +82,8 @@ function resetBall() {
     ball.y = canvas.height / 2;
     ball.velocityX = -ball.velocityX;
     ball.speed = ballSpeed;
+    randomizeHitOffset(user);
+    randomizeHitOffset(computer);
 }
 
 // draw net/line in middle
@@ -137,7 +149,7 @@ function update() {
     let rand2 = Math.random() + 0.4;
 
     // computer plays
-    computer.y += (ball.y - (computer.y + 3 * computer.height / 4)) * rand;
+    computer.y += (ball.y - (computer.y + computer.hitOffset * computer.height)) * rand;
 
     //check if game is playable by user
     if (isPlayable) {
@@ -145,7 +157,7 @@ function update() {
     }
     else {
         // user(computer 2) plays automatically
-        user.y += (ball.y - (user.y + user.height / 4)) * rand2;
+        user.y += (ball.y - (user.y + user.hitOffset * user.height)) * rand2;
     }
 
     // when the ball collides with bottom and top walls, inverse the y velocity
@@ -169,6 +181,9 @@ function update() {
         let direction = (ball.x + ball.radius < canvas.width / 2) ? 1 : -1;
         ball.velocityX = direction * ball.speed * Math.cos(angleRad);
         ball.velocityY = ball.speed * Math.sin(angleRad);
+
+        // ball is now heading toward the other paddle, so pick a new spot for it to hit with
+        randomizeHitOffset(player === user ? computer : user);
 
         if (ball.speed < 24) { // cap the ball speed at 24
             // speed up the ball everytime it hits paddle
