@@ -6,9 +6,17 @@ canvas.width = canvas.getBoundingClientRect().width;
 canvas.height = canvas.getBoundingClientRect().height;
 
 // pong game configurations
-const ballSpeed = 12;
+const baseBallSpeed = 12;     // starting ball speed (px per frame) on a screen at least fullSpeedWidth wide
+const baseMaxBallSpeed = 24;  // top ball speed on a screen at least fullSpeedWidth wide
+const fullSpeedWidth = 1920;  // narrower screens get a proportionally slower ball
 const framePerSecond = 60;
 const autoStartPong = true;
+
+// scale ball speed with screen width so the ball takes about the same time to cross any screen
+// (capped at 1 so wide screens play no faster than before)
+const speedScale = Math.min(1, canvas.width / fullSpeedWidth);
+const ballSpeed = baseBallSpeed * speedScale;
+const maxBallSpeed = baseMaxBallSpeed * speedScale;
 
 // Ball (pong)
 const ball = {
@@ -19,7 +27,7 @@ const ball = {
     velocityY: ballSpeed * Math.sin(Math.PI / 4),
     speed: ballSpeed,
     color: "WHITE",
-    speedUpLevel: 0.2
+    speedUpLevel: 0.2 * speedScale
 }
 
 // User Paddle
@@ -80,7 +88,11 @@ function drawArc(x, y, r, color) {
 function resetBall() {
     ball.x = canvas.width / 2;
     ball.y = canvas.height / 2;
-    ball.velocityX = -ball.velocityX;
+    // serve toward the other side at the starting speed (keeping the current angle),
+    // instead of at whatever speed the last rally had built up to
+    const toStartSpeed = ballSpeed / Math.hypot(ball.velocityX, ball.velocityY);
+    ball.velocityX = -ball.velocityX * toStartSpeed;
+    ball.velocityY = ball.velocityY * toStartSpeed;
     ball.speed = ballSpeed;
     randomizeHitOffset(user);
     randomizeHitOffset(computer);
@@ -185,7 +197,7 @@ function update() {
         // ball is now heading toward the other paddle, so pick a new spot for it to hit with
         randomizeHitOffset(player === user ? computer : user);
 
-        if (ball.speed < 24) { // cap the ball speed at 24
+        if (ball.speed < maxBallSpeed) { // cap the ball speed
             // speed up the ball everytime it hits paddle
             ball.speed += ball.speedUpLevel;
         }
