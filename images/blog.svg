@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <!-- Paper (two-tone, matching the flat icon style used on the homepage) -->
+  <rect x="28" y="18" width="164" height="220" rx="16" fill="#E3F2FD"/>
+  <path d="M110 18h66a16 16 0 0 1 16 16v188a16 16 0 0 1-16 16h-66z" fill="#BBDEFB"/>
+  <!-- Text lines -->
+  <rect x="56" y="54" width="108" height="18" rx="9" fill="#1E88E5"/>
+  <rect x="56" y="96" width="108" height="12" rx="6" fill="#64B5F6"/>
+  <rect x="56" y="126" width="108" height="12" rx="6" fill="#64B5F6"/>
+  <rect x="56" y="156" width="72" height="12" rx="6" fill="#64B5F6"/>
+  <rect x="56" y="186" width="48" height="12" rx="6" fill="#64B5F6"/>
+  <!-- Pencil -->
+  <g transform="translate(-14 12) rotate(40 186 134)">
+    <rect x="168" y="30" width="36" height="26" rx="6" fill="#EF5350"/>
+    <rect x="168" y="52" width="36" height="14" fill="#B0BEC5"/>
+    <rect x="168" y="66" width="18" height="120" fill="#FFCA28"/>
+    <rect x="186" y="66" width="18" height="120" fill="#FFA000"/>
+    <polygon points="168,186 204,186 186,226" fill="#FFE0B2"/>
+    <polygon points="178,208 194,208 186,226" fill="#37474F"/>
+  </g>
+</svg>
