@@ -18,13 +18,17 @@ const speedScale = Math.min(1, canvas.width / fullSpeedWidth);
 const ballSpeed = baseBallSpeed * speedScale;
 const maxBallSpeed = baseMaxBallSpeed * speedScale;
 
+// serve the first ball rightward (toward the computer paddle) at a random angle
+// between 45 degrees up and 45 degrees down, so each page load starts differently
+const startAngle = (Math.random() * 2 - 1) * (Math.PI / 4);
+
 // Ball (pong)
 const ball = {
     x: canvas.width / 2, // right side of canvas
     y: canvas.height / 2,
     radius: 10,
-    velocityX: ballSpeed * Math.cos(Math.PI / 4),
-    velocityY: ballSpeed * Math.sin(Math.PI / 4),
+    velocityX: ballSpeed * Math.cos(startAngle),
+    velocityY: ballSpeed * Math.sin(startAngle),
     speed: ballSpeed,
     color: "WHITE",
     speedUpLevel: 0.2 * speedScale
